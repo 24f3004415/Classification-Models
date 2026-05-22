@@ -202,19 +202,20 @@ hr { border-color: var(--border) !important; margin: 1.5rem 0 !important; }
 
 
 # ── Load model & data ──────────────────────────────────────────────────────────
+BASE_DIR = Path(__file__).parent
+
 @st.cache_resource
 def load_model():
-    return joblib.load("logistic.pkl")
+    return joblib.load(BASE_DIR / "logistic.pkl")
 
 @st.cache_data
 def load_data():
-    return pd.read_csv("customer_churn_prediction_dataset.csv")
+    return pd.read_csv(BASE_DIR / "customer_churn_prediction_dataset.csv")
 
 model = load_model()
 df    = load_data()
 
 FEATURE_COLS = list(model.feature_names_in_)
-
 # Categorical options
 CAT_OPTS = {
     "gender":            ["Male", "Female"],
